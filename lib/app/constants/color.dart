@@ -13,20 +13,36 @@ const appWhite = Color(0xFFFAF8FC);
 const appOrange = Color(0xFFE6704A);
 
 ThemeData themeLight = ThemeData(
-  brightness: Brightness.light,
+    brightness: Brightness.light,
+    floatingActionButtonTheme:
+        FloatingActionButtonThemeData(backgroundColor: appPurple),
     scaffoldBackgroundColor: Colors.white,
     primaryColor: appPurple,
     appBarTheme: AppBarTheme(
       elevation: 4,
       backgroundColor: appPurple,
     ),
-     textTheme: TextTheme(
+    textTheme: TextTheme(
       bodyText1: TextStyle(color: appPurpleDark1),
       bodyText2: TextStyle(color: appPurpleDark1),
-    ));
+    ),
+    listTileTheme: ListTileThemeData(
+      textColor: appPurpleDark1,
+    ),
+    tabBarTheme: TabBarTheme(
+        labelColor: appPurpleDark1,
+        unselectedLabelColor: Colors.grey,
+      
+        //  indicatorColor: appPurpleDark1,
+        //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
+        //             unselectedLabelColor: Colors.grey,
+
+        ));
 
 ThemeData temeDark = ThemeData(
-  brightness: Brightness.dark,
+    brightness: Brightness.dark,
+    floatingActionButtonTheme:
+        FloatingActionButtonThemeData(backgroundColor: appWhite),
     scaffoldBackgroundColor: appPurpleDark1,
     primaryColor: appPurpleLight2,
     appBarTheme: AppBarTheme(
@@ -36,4 +52,16 @@ ThemeData temeDark = ThemeData(
     textTheme: TextTheme(
       bodyText1: TextStyle(color: appWhite),
       bodyText2: TextStyle(color: appWhite),
-    ));
+    ),
+    listTileTheme: ListTileThemeData(
+      textColor: appWhite,
+    ),
+    tabBarTheme: TabBarTheme(
+        labelColor: appWhite,
+        unselectedLabelColor: Colors.grey,
+       
+        //  indicatorColor: appPurpleDark1,
+        //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
+        //             unselectedLabelColor: Colors.grey,
+
+        ));

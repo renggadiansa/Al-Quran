@@ -11,6 +11,9 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    if (Get.isDarkMode) {
+      controller.isDark.value = true;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -136,21 +139,17 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 20,
               ),
-              TabBar(
-                  indicatorColor: appPurpleDark1,
-                  labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
-                  unselectedLabelColor: Colors.grey,
-                  tabs: [
-                    Tab(
-                      text: "Surah",
-                    ),
-                    Tab(
-                      text: "Juz",
-                    ),
-                    Tab(
-                      text: "Bookmark",
-                    )
-                  ]),
+              TabBar(tabs: [
+                Tab(
+                  text: "Surah",
+                ),
+                Tab(
+                  text: "Juz",
+                ),
+                Tab(
+                  text: "Bookmark",
+                )
+              ]),
               Expanded(
                 child: TabBarView(
                   children: [
@@ -181,43 +180,48 @@ class HomeView extends GetView<HomeController> {
                                   Get.toNamed(Routes.DETAIL_SURAH,
                                       arguments: surah);
                                 },
-                                leading: Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(Get.isDarkMode
-                                          ? "assets/images/octagonal_dark.png"
-                                          : "assets/images/octagonal.png"),
-                                    ),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    "${surah.number}",
-                                    style: TextStyle(
-                                      color: Get.isDarkMode
-                                          ? appWhite
-                                          : appPurpleDark1,
-                                    ),
-                                  )),
-                                ),
+                                leading: Obx(() => Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(controller
+                                                  .isDark.isTrue
+                                              ? "assets/images/octagonal_dark.png"
+                                              : "assets/images/octagonal.png"),
+                                        ),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        "${surah.number}",
+                                        // style: TextStyle(
+                                        //   color: Get.isDarkMode
+                                        //       ? appWhite
+                                        //       : appPurpleDark1,
+                                        // ),
+                                      )),
+                                    )),
                                 title: Text(
                                   "Surah ${surah.name?.transliteration?.id ?? 'Error'}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Get.isDarkMode
-                                          ? appWhite
-                                          : appPurpleDark1),
+                                  // style: TextStyle(
+                                  //     fontWeight: FontWeight.bold,
+                                  //     color: Get.isDarkMode
+                                  //         ? appWhite
+                                  //         : appPurpleDark1),
                                 ),
                                 subtitle: Text(
-                                    "${surah.numberOfVerses} ayat | ${surah.revelation?.id ?? 'Error'}"),
+                                  "${surah.numberOfVerses} ayat | ${surah.revelation?.id ?? 'Error'}",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                                 trailing: Text(
                                   "${surah.name?.short ?? 'Error'}",
-                                  style: TextStyle(
-                                    color: Get.isDarkMode
-                                        ? appWhite
-                                        : appPurpleDark1,
-                                  ),
+                                  // style: TextStyle(
+                                  //   color: Get.isDarkMode
+                                  //       ? appWhite
+                                  //       : appPurpleDark1,
+                                  // ),
                                 ),
                               );
                             });
@@ -231,28 +235,30 @@ class HomeView extends GetView<HomeController> {
                               // Get.toNamed(Routes.DETAIL_SURAH,
                               //     arguments: surah);
                             },
-                            leading: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/octagonal.png"),
-                                ),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                "${index + 1}",
-                                style: TextStyle(
-                                  color: appPurpleDark1,
-                                ),
-                              )),
+                            leading: Obx(
+                              () => Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(controller.isDark.isTrue
+                                          ? "assets/images/octagonal_dark.png"
+                                          : "assets/images/octagonal.png"),
+                                    ),
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    "${index + 1}",
+                                    // style: TextStyle(
+                                    //   color: appPurpleDark1,
+                                    // ),
+                                  ))),
                             ),
                             title: Text(
                               "Juz ${index + 1}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: appPurpleDark1),
+                              // style: TextStyle(
+                              //     fontWeight: FontWeight.bold,
+                              //     color: appPurpleDark1),
                             ));
                       },
                     ),
@@ -264,6 +270,25 @@ class HomeView extends GetView<HomeController> {
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.isDarkMode
+              ? Get.changeTheme(themeLight)
+              : Get.changeTheme(temeDark);
+          controller.isDark.value = !controller.isDark.value;
+        },
+        child: Obx(
+          () => controller.isDark.isTrue
+              ? Icon(
+                  Icons.light_mode,
+                   color: controller.isDark.isTrue ? appPurpleDark1 : appWhite,
+                )
+              : Icon(
+                  Icons.dark_mode,
+                  color: controller.isDark.isTrue ? appPurpleDark1 : appWhite,
+                ),
         ),
       ),
     );
