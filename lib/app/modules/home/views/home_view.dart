@@ -16,6 +16,8 @@ class HomeView extends GetView<HomeController> {
     }
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(color: Colors.white,
+        onPressed: () => Get.toNamed(Routes.INTRODUCTION),),
         title: const Text(
           'Al Quran',
           style: TextStyle(color: Colors.white),
@@ -36,7 +38,7 @@ class HomeView extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Assalamuaaikum 'Aidina Nur Faizin",
+                "Assalamualaikum, 'Aidina Nur Faizin",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -283,7 +285,7 @@ class HomeView extends GetView<HomeController> {
           () => controller.isDark.isTrue
               ? Icon(
                   Icons.light_mode,
-                   color: controller.isDark.isTrue ? appPurpleDark1 : appWhite,
+                  color: controller.isDark.isTrue ? appPurpleDark1 : appWhite,
                 )
               : Icon(
                   Icons.dark_mode,
