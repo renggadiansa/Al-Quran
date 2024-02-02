@@ -1,4 +1,5 @@
 import 'package:alquran/app/constants/color.dart';
+import 'package:alquran/app/data/models/juz.dart' as juz;
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:alquran/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,10 @@ class HomeView extends GetView<HomeController> {
     }
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: Colors.white,
-        onPressed: () => Get.toNamed(Routes.INTRODUCTION),),
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () => Get.toNamed(Routes.INTRODUCTION),
+        ),
         title: const Text(
           'Al Quran',
           style: TextStyle(color: Colors.white),
@@ -171,7 +174,7 @@ class HomeView extends GetView<HomeController> {
                           );
                         }
 
-                        print(snapshot.data);
+                        // print(snapshot.data);
 
                         return ListView.builder(
                             itemCount: snapshot.data!.length,
@@ -205,11 +208,9 @@ class HomeView extends GetView<HomeController> {
                                     )),
                                 title: Text(
                                   "Surah ${surah.name?.transliteration?.id ?? 'Error'}",
-                                  // style: TextStyle(
-                                  //     fontWeight: FontWeight.bold,
-                                  //     color: Get.isDarkMode
-                                  //         ? appWhite
-                                  //         : appPurpleDark1),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 subtitle: Text(
                                   "${surah.numberOfVerses} ayat | ${surah.revelation?.id ?? 'Error'}",
@@ -229,39 +230,77 @@ class HomeView extends GetView<HomeController> {
                             });
                       },
                     ),
-                    ListView.builder(
-                      itemCount: 30,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                            onTap: () {
-                              // Get.toNamed(Routes.DETAIL_SURAH,
-                              //     arguments: surah);
-                            },
-                            leading: Obx(
-                              () => Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(controller.isDark.isTrue
-                                          ? "assets/images/octagonal_dark.png"
-                                          : "assets/images/octagonal.png"),
+                    FutureBuilder<List<juz.Juz>>(
+                      future: controller.getAllJuz(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Text("Data Kosong"),
+                          );
+                        }
+                        print(snapshot.data);
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            juz.Juz detailJuz = snapshot.data![index];
+                            return ListTile(
+                              onTap: () {
+                                Get.toNamed(Routes.DETAIL_JUZ,
+                                    arguments: detailJuz);
+                              },
+                              leading: Obx(
+                                () => Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(controller
+                                                .isDark.isTrue
+                                            ? "assets/images/octagonal_dark.png"
+                                            : "assets/images/octagonal.png"),
+                                      ),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      "${index + 1}",
+                                      // style: TextStyle(
+                                      //   color: appPurpleDark1,
+                                      // ),
+                                    ))),
+                              ),
+                              title: Text(
+                                "Juz ${index + 1}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              isThreeLine: true,
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Mulai dari Surah ${detailJuz.juzStartInfo}",
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                  Text(
+                                    "Sampai Surah ${detailJuz.juzEndInfo}",
+                                    style: TextStyle(
+                                      color: Colors.grey,
                                     ),
                                   ),
-                                  child: Center(
-                                      child: Text(
-                                    "${index + 1}",
-                                    // style: TextStyle(
-                                    //   color: appPurpleDark1,
-                                    // ),
-                                  ))),
-                            ),
-                            title: Text(
-                              "Juz ${index + 1}",
-                              // style: TextStyle(
-                              //     fontWeight: FontWeight.bold,
-                              //     color: appPurpleDark1),
-                            ));
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
                     Center(

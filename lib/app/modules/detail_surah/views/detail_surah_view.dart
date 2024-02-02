@@ -37,7 +37,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                            "Tafsir ${surah.name?.transliteration?.id ?? 'Error'}",
+                            "Tafsir Surah ${surah.name?.transliteration?.id ?? 'Error'}",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             )),
