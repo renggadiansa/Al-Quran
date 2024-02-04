@@ -183,25 +183,81 @@ class DetailSurahView extends GetView<DetailSurahController> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          Text(
-                            "${ayat!.text?.arab}",
-                            textAlign: TextAlign.end,
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "${ayat.text?.transliteration?.en}",
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                fontSize: 18, fontStyle: FontStyle.italic),
-                          ),
-                          SizedBox(height: 25),
-                          Text(
-                            "${ayat.translation?.id}",
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          SizedBox(height: 50),
+                          GestureDetector(
+                            onLongPress: () => Get.dialog(Dialog(
+                              child: SingleChildScrollView(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Get.isDarkMode
+                                        ? appPurpleLight2.withOpacity(0.3)
+                                        : appWhite,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  padding: EdgeInsets.all(25),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                          "Tafsir Surah ${surah.name?.transliteration?.id ?? 'Error'} Ayat ${ayat.number?.inSurah ?? 'Error'}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          )),
+                                      SizedBox(height: 20),
+                                      Text(
+                                        "Tafsir Pendek",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${ayat.tafsir?.id?.short ?? 'Error'}",
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                      SizedBox(height: 30),
+                                      Text(
+                                        "Tafsir Panjang",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${ayat.tafsir?.id?.long ?? 'Error'}",
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "${ayat!.text?.arab}",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  "${ayat.text?.transliteration?.en}",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                                SizedBox(height: 25),
+                                Text(
+                                  "${ayat.translation?.id}",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(height: 50),
+                              ],
+                            ),
+                          )
                         ],
                       );
                     },
