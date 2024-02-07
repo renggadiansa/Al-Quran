@@ -78,13 +78,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                 ),
                               ),
                             ),
-                            Text(
-                              "${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? ''}",
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 20,
-                              ),
-                            )
+                            // Text(
+                            //   "${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? ''}",
+                            //   style: TextStyle(
+                            //     fontStyle: FontStyle.italic,
+                            //     fontSize: 20,
+                            //   ),
+                            // )
                           ],
                         ),
                         Row(

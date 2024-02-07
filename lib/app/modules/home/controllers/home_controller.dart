@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   List<Surah> allSurah = [];
   RxBool isDark = false.obs;
   Future<List<Surah>> getAllSurah() async {
-    Uri url = Uri.parse("https://api.quran.gading.dev/surah");
+    Uri url = Uri.parse("https://myquran-api.vercel.app/surah");
     var res = await http.get(url);
 
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
