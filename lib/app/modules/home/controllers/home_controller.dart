@@ -1,13 +1,28 @@
 import 'dart:convert';
 
+import 'package:alquran/app/constants/color.dart';
 import 'package:alquran/app/data/models/juz.dart';
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
   List<Surah> allSurah = [];
   RxBool isDark = false.obs;
+
+  void changeThemeMode() async {
+    Get.isDarkMode ? Get.changeTheme(themeLight) : Get.changeTheme(temeDark);
+    isDark.toggle();
+
+    final box = GetStorage();
+    if (Get.isDarkMode) {
+      box.remove("temeDark");
+    } else {
+      box.write("temeDark", true);
+    }
+  }
+
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://myquran-api.vercel.app/surah");
     var res = await http.get(url);
