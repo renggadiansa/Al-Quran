@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async{
-  await GetStorage.init();
+  await GetStorage.init();x
   final box = GetStorage();
   runApp(
     GetMaterialApp(
