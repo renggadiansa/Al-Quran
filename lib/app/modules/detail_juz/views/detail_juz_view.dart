@@ -48,9 +48,103 @@ class DetailJuzView extends GetView<DetailJuzController> {
                   }
                 }
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                return ListView(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
+                    if (ayat.number?.inSurah == 1)
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GestureDetector(
+                            // onLongPress: () => Get.dialog(Dialog(
+                            //   child: Container(
+                            //       decoration: BoxDecoration(
+                            //           color: Get.isDarkMode
+                            //               ? appPurpleLight2.withOpacity(0.3)
+                            //               : appWhite,
+                            //           borderRadius: BorderRadius.circular(20)),
+                            //       padding: EdgeInsets.all(25),
+                            //       child: Column(
+                            //         mainAxisSize: MainAxisSize.min,
+                            //         children: [
+                            //           Text(
+                            //               "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
+                            //               style: TextStyle(
+                            //                 fontWeight: FontWeight.bold,
+                            //               )),
+                            //           SizedBox(height: 20),
+                            //           Text(
+                            //             "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
+                            //             textAlign: TextAlign.justify,
+                            //           ),
+                            //         ],
+                            //       )),
+                            // )),
+                            // onTap: () => Get.defaultDialog(
+                            //     contentPadding: EdgeInsets.symmetric(
+                            //         horizontal: 30, vertical: 5),
+                            //     title:
+                            //         "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
+                            //     titleStyle: TextStyle(
+                            //       fontWeight: FontWeight.bold,
+                            //     ),
+                            //     content: Container(
+                            //       color: Colors.transparent,
+                            //       child: Text(
+                            //         "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
+                            //         textAlign: TextAlign.justify,
+                            //       ),
+                            //     )),
+                            child: Container(
+                              width: Get.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    appPurpleDark1,
+                                    appPurpleLight1,
+                                  ],
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Surah ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
+                                      style: TextStyle(
+                                        color: appWhite,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "(${allSurahInThisJuz[controller.index].name?.translation?.id ?? 'Error'})",
+                                      style: TextStyle(
+                                        color: appWhite,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${allSurahInThisJuz[controller.index].numberOfVerses ?? 'Error'} Ayat | ${allSurahInThisJuz[controller.index].revelation?.id ?? 'Error'}",
+                                      style: TextStyle(
+                                        color: appWhite,
+                                        fontSize: 16,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -82,13 +176,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  "${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? ''}",
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 20,
-                                  ),
-                                )
+                                // Text(
+                                //   "${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? ''}",
+                                //   style: TextStyle(
+                                //     fontStyle: FontStyle.italic,
+                                //     fontSize: 20,
+                                //   ),
+                                // )
                               ],
                             ),
                             Row(
@@ -123,7 +217,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                     SizedBox(height: 25),
                     Text(
                       "${ayat.translation?.id}",
-                      textAlign: TextAlign.justify,
+                      textAlign: TextAlign.end,
                       style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(height: 50),
