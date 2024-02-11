@@ -57,30 +57,30 @@ class DetailJuzView extends GetView<DetailJuzController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           GestureDetector(
-                            // onLongPress: () => Get.dialog(Dialog(
-                            //   child: Container(
-                            //       decoration: BoxDecoration(
-                            //           color: Get.isDarkMode
-                            //               ? appPurpleLight2.withOpacity(0.3)
-                            //               : appWhite,
-                            //           borderRadius: BorderRadius.circular(20)),
-                            //       padding: EdgeInsets.all(25),
-                            //       child: Column(
-                            //         mainAxisSize: MainAxisSize.min,
-                            //         children: [
-                            //           Text(
-                            //               "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
-                            //               style: TextStyle(
-                            //                 fontWeight: FontWeight.bold,
-                            //               )),
-                            //           SizedBox(height: 20),
-                            //           Text(
-                            //             "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
-                            //             textAlign: TextAlign.justify,
-                            //           ),
-                            //         ],
-                            //       )),
-                            // )),
+                            onLongPress: () => Get.dialog(Dialog(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Get.isDarkMode
+                                          ? appPurpleLight2.withOpacity(0.3)
+                                          : appWhite,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  padding: EdgeInsets.all(25),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                          "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      SizedBox(height: 20),
+                                      Text(
+                                        "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  )),
+                            )),
                             // onTap: () => Get.defaultDialog(
                             //     contentPadding: EdgeInsets.symmetric(
                             //         horizontal: 30, vertical: 5),
