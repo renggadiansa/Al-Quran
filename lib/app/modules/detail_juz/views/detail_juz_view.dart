@@ -11,6 +11,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
   final juz.Juz detailJuz = Get.arguments["juz"];
   final List<Surah> allSurahInThisJuz = Get.arguments["surah"];
 
+final Surah surah = Get.arguments["surah"] [0];
   //const DetailJuzView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -69,33 +70,18 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                          "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
+                                          "Tafsir ${surah.name?.transliteration?.id ?? 'Error'}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                           )),
                                       SizedBox(height: 20),
                                       Text(
-                                        "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
+                                        "Tafsir ${surah.tafsir?.id ?? 'Error'}",
                                         textAlign: TextAlign.justify,
                                       ),
                                     ],
                                   )),
                             )),
-                            // onTap: () => Get.defaultDialog(
-                            //     contentPadding: EdgeInsets.symmetric(
-                            //         horizontal: 30, vertical: 5),
-                            //     title:
-                            //         "Tafsir ${allSurahInThisJuz[controller.index].name?.transliteration?.id ?? 'Error'}",
-                            //     titleStyle: TextStyle(
-                            //       fontWeight: FontWeight.bold,
-                            //     ),
-                            //     content: Container(
-                            //       color: Colors.transparent,
-                            //       child: Text(
-                            //         "Tafsir ${allSurahInThisJuz[controller.index].tafsir?.id ?? 'Error'}",
-                            //         textAlign: TextAlign.justify,
-                            //       ),
-                            //     )),
                             child: Container(
                               width: Get.width,
                               decoration: BoxDecoration(
