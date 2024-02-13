@@ -11,7 +11,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
   final juz.Juz detailJuz = Get.arguments["juz"];
   final List<Surah> allSurahInThisJuz = Get.arguments["surah"];
 
-final Surah surah = Get.arguments["surah"] [0];
+  final Surah surah = Get.arguments["surah"];
   //const DetailJuzView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
