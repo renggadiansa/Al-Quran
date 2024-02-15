@@ -1,4 +1,5 @@
 import 'package:alquran/app/constants/color.dart';
+import 'package:alquran/app/data/models/detail_surah.dart' as detail;
 import 'package:alquran/app/data/models/juz.dart' as juz;
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:flutter/material.dart';
@@ -122,25 +123,27 @@ class DetailJuzView extends GetView<DetailJuzController> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Text(
-                    "${ayat.text?.arab}",
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(fontSize: 25),
+                  SurahWidget2(
+                    surah: allSurahInThisJuz[controller.index],
+                    ayat: detail.Verse(
+                        text: detail.Text(
+                          arab: ayat.text?.arab,
+                          transliteration: detail.Transliteration(
+                            en: ayat.text?.transliteration?.en,
+                          ),
+                        ),
+                        translation: detail.Translation(
+                          id: ayat.translation?.id,
+                        ),
+                        number: detail.Number(inSurah: ayat.number?.inSurah),
+                        tafsir: detail.VerseTafsir(
+                          id: detail.Id(
+                            short: ayat.tafsir?.id?.short,
+                            long: ayat.tafsir?.id?.long,
+                          ),
+                        )),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "${ayat.text?.transliteration?.en}",
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic),
-                  ),
-                  const SizedBox(height: 25),
-                  Text(
-                    "${ayat.translation?.id}",
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 20),
                 ],
               );
             },
@@ -229,6 +232,87 @@ class SurahWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SurahWidget2 extends StatelessWidget {
+  const SurahWidget2({super.key, required this.surah, required this.ayat});
+  final Surah surah;
+  final detail.Verse ayat;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPress: () => Get.dialog(Dialog(
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              color:
+                  Get.isDarkMode ? appPurpleLight2.withOpacity(0.3) : appWhite,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: EdgeInsets.all(25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                    "Tafsir Surah ${surah.name?.transliteration?.id ?? 'Error'} Ayat ${ayat.number?.inSurah ?? 'Error'}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    )),
+                SizedBox(height: 20),
+                Text(
+                  "Tafsir Pendek",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  "${ayat.tafsir?.id?.short ?? 'Error'}",
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(height: 30),
+                Text(
+                  "Tafsir Panjang",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  "${ayat.tafsir?.id?.long ?? 'Error'}",
+                  textAlign: TextAlign.justify,
+                ),
+              ],
+            ),
+          ),
+        ),
+      )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            "${ayat.text?.arab}",
+            textAlign: TextAlign.end,
+            style: TextStyle(fontSize: 25),
+          ),
+          SizedBox(height: 10),
+          Text(
+            "${ayat.text?.transliteration?.en}",
+            textAlign: TextAlign.end,
+            style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+          ),
+          SizedBox(height: 25),
+          Text(
+            "${ayat.translation?.id}",
+            textAlign: TextAlign.end,
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(height: 50),
+        ],
       ),
     );
   }
