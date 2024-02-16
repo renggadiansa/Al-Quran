@@ -143,7 +143,6 @@ class DetailJuzView extends GetView<DetailJuzController> {
                           ),
                         )),
                   ),
-                  const SizedBox(height: 20),
                 ],
               );
             },
