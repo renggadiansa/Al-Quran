@@ -106,15 +106,16 @@ class DetailJuzView extends GetView<DetailJuzController> {
                             ],
                           ),
                           Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.bookmark_add_outlined),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon:
-                                    const Icon(Icons.play_circle_fill_rounded),
+                              JuzAudio(
+                                surah: allSurahInThisJuz[controller.index],
+                                ayat: detail.Verse(
+                                  audio: detail.Audio(
+                                    primary: ayat.audio?.primary,
+                                    // secondary: ayat.audio?.secondary,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -311,6 +312,57 @@ class SurahWidget2 extends StatelessWidget {
             style: TextStyle(fontSize: 18),
           ),
           SizedBox(height: 50),
+        ],
+      ),
+    );
+  }
+}
+
+class JuzAudio extends StatelessWidget {
+  const JuzAudio({super.key, required this.surah, required this.ayat});
+  final Surah surah;
+  final detail.Verse ayat;
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<DetailJuzController>(
+      builder: (c) => Row(
+        children: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.bookmark_add_outlined),
+          ),
+          (ayat.kondisiAudio == "stop")
+              ? IconButton(
+                  onPressed: () {
+                    c.playAudio(ayat);
+                  },
+                  icon: Icon(Icons.play_circle_fill_rounded),
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    (ayat.kondisiAudio == "playing")
+                        ? IconButton(
+                            onPressed: () {
+                              c.pauseAudio(ayat);
+                            },
+                            icon: Icon(Icons.pause_circle_filled_rounded),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              c.resumeAudio(ayat);
+                            },
+                            icon: Icon(Icons.play_circle_fill_rounded),
+                          ),
+                    IconButton(
+                      onPressed: () {
+                        c.stopAudio(ayat);
+                      },
+                      icon: Icon(Icons.stop),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
