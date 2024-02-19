@@ -1,15 +1,35 @@
 import 'dart:convert';
 
 import 'package:alquran/app/constants/color.dart';
+import 'package:alquran/app/data/db/bookmark.dart';
 import 'package:alquran/app/data/models/juz.dart';
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:sqflite/sqflite.dart';
 
 class HomeController extends GetxController {
   List<Surah> allSurah = [];
   RxBool isDark = false.obs;
+
+  DatabaseManager database = DatabaseManager.instance;
+
+  void deleteBookmark(int id) async{
+    Database db = await database.db;
+    await db.delete("bookmark", where: "id = $id");
+    update();
+    Get.back();
+    Get.snackbar("Berhasil", "Berhasil menghapus bookmark",
+        colorText: appWhite);
+  }
+
+  Future<List<Map<String, dynamic>>> getBookmark() async {
+    Database db = await database.db;
+    List<Map<String, dynamic>> allbookmark =
+        await db.query("bookmark", where: "last_read = 0");
+    return allbookmark;
+  }
 
   void changeThemeMode() async {
     Get.isDarkMode ? Get.changeTheme(themeLight) : Get.changeTheme(temeDark);

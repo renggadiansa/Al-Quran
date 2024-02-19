@@ -5,6 +5,7 @@ import 'package:alquran/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -336,9 +337,104 @@ class HomeView extends GetView<HomeController> {
                         );
                       },
                     ),
-                    Center(
-                      child: Text("Page 3"),
-                    ),
+                    GetBuilder<HomeController>(
+                      builder: (c) {
+                        return FutureBuilder(
+                          future: c.getBookmark(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            if (snapshot.data?.length == 0) {
+                              return Center(
+                                child: Text("Belum ada Bookmark"),
+                              );
+                            }
+
+                            return ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                Map<String, dynamic> data =
+                                    snapshot.data![index];
+                                return ListTile(
+                                  onTap: () {
+                                    print(data);
+                                  },
+                                  leading: Obx(
+                                    () => Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(controller
+                                                    .isDark.isTrue
+                                                ? "assets/images/octagonal_dark.png"
+                                                : "assets/images/octagonal.png"),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                          "${index + 1}",
+                                          // style: TextStyle(
+                                          //   color: appPurpleDark1,
+                                          // ),
+                                        ))),
+                                  ),
+                                  title: Text(
+                                      "${data["surah"].toString().replaceAll("+", "'")}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  subtitle: Text(
+                                    "Ayat ${data["ayat"]} - via ${data["via"]}",
+                                    style: TextStyle(color: Colors.grey[500]),
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      Get.defaultDialog(
+                                        title: "Hapus Bookmark",
+                                        titleStyle: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        middleText:
+                                            "Apakah anda yakin ingin menghapus bookmark ini?",
+                                        confirm: ElevatedButton(
+                                          onPressed: () {
+                                            c.deleteBookmark(data["id"]);
+                                          },
+                                          child: Text(
+                                            "Hapus",
+                                            style: TextStyle(color: appWhite),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: appPurpleDark1,
+                                          ),
+                                        ),
+                                        cancel: ElevatedButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: Text(
+                                            "Batal",
+                                            style: TextStyle(color: appWhite),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: appPurpleDark1,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(Icons.delete),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

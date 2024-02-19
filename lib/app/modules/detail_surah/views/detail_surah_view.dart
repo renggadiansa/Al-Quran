@@ -175,14 +175,18 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                               middleText: "Pilih jenis Bookmark",
                                               actions: [
                                                 ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    c.addBookmark(true, snapshot.data!, ayat!,index);
+                                                  },
                                                   child: Text("Last Read", style: TextStyle(color: Colors.white),),
                                                   style: ElevatedButton.styleFrom(
                                                     primary: appPurple,
                                                   ),
                                                 ),
                                                 ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    c.addBookmark(false, snapshot.data!, ayat!, index);
+                                                  },
                                                   child: Text("Bookmark", style: TextStyle(color: Colors.white),),
                                                   style: ElevatedButton.styleFrom(
                                                     primary: appPurple,
