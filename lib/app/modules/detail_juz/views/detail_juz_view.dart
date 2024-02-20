@@ -1,5 +1,7 @@
 import 'package:alquran/app/constants/color.dart';
 import 'package:alquran/app/data/models/detail_surah.dart' as detail;
+import 'package:alquran/app/data/models/detail_surah.dart' as detail2;
+
 import 'package:alquran/app/data/models/juz.dart' as juz;
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:flutter/material.dart';
@@ -109,14 +111,30 @@ class DetailJuzView extends GetView<DetailJuzController> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               JuzAudio(
-                                surah: allSurahInThisJuz[controller.index],
-                                ayat: detail.Verse(
-                                  audio: detail.Audio(
-                                    primary: ayat.audio?.primary,
-                                    // secondary: ayat.audio?.secondary,
+                                  surah: allSurahInThisJuz[controller.index],
+                                  ayat: detail.Verse(
+                                    audio: detail.Audio(
+                                      primary: ayat.audio?.primary,
+                                      // secondary: ayat.audio?.secondary,
+                                    ),
+                                    number: detail.Number(
+                                      inSurah: ayat.number?.inSurah,
+                                    ),
+                                    meta: detail.Meta(
+                                      juz: ayat.meta?.juz,
+                                      page: ayat.meta?.page,
+                                    ),
                                   ),
-                                ),
-                              ),
+                                  detailSurah: detail.DetailSurah(
+                                    name: detail.Name(
+                                      transliteration: detail.Translation(
+                                        id: allSurahInThisJuz[controller.index]
+                                            .name
+                                            ?.transliteration
+                                            ?.id,
+                                      ),
+                                    ),
+                                  )),
                             ],
                           ),
                         ],
@@ -319,9 +337,14 @@ class SurahWidget2 extends StatelessWidget {
 }
 
 class JuzAudio extends StatelessWidget {
-  const JuzAudio({super.key, required this.surah, required this.ayat});
+  const JuzAudio(
+      {super.key,
+      required this.surah,
+      required this.ayat,
+      required this.detailSurah});
   final Surah surah;
   final detail.Verse ayat;
+  final detail2.DetailSurah detailSurah;
 
   @override
   Widget build(BuildContext context) {
@@ -329,7 +352,38 @@ class JuzAudio extends StatelessWidget {
       builder: (c) => Row(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.defaultDialog(
+                title: "BOOKMARK",
+                middleText: "Pilih jenis Bookmark",
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      c.addBookmark(true, detailSurah, ayat, c.index);
+                    },
+                    child: Text(
+                      "Last Read",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: appPurple,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      c.addBookmark(false, detailSurah, ayat, c.index);
+                    },
+                    child: Text(
+                      "Bookmark",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: appPurple,
+                    ),
+                  ),
+                ],
+              );
+            },
             icon: Icon(Icons.bookmark_add_outlined),
           ),
           (ayat.kondisiAudio == "stop")
