@@ -1,4 +1,5 @@
 import 'package:alquran/app/data/db/bookmark.dart';
+import 'package:alquran/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -9,6 +10,9 @@ import 'package:just_audio/just_audio.dart';
 
 class DetailJuzController extends GetxController {
   int index = 0;
+
+    final homeC = Get.find<HomeController>();
+
 
   DatabaseManager database = DatabaseManager.instance;
 
@@ -40,6 +44,7 @@ class DetailJuzController extends GetxController {
       });
 
       Get.back();
+      homeC.update();
       Get.snackbar("Berhasil", "Berhasil menambahkan bookmark",
           colorText: appWhite);
     } else {

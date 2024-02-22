@@ -50,130 +50,21 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 20,
               ),
-              FutureBuilder<Map<String, dynamic>?>(
-                future: controller.getLastRead(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            appPurpleLight1,
-                            appPurpleDark1,
-                          ],
-                        ),
-                      ),
-                      child: Container(
-                        height: 150,
-                        width: Get.width,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Opacity(
-                                  opacity: 0.5,
-                                  child: Container(
-                                      width: 150,
-                                      height: 150,
-                                      child: Image.asset(
-                                        "assets/images/alquran.png",
-                                        fit: BoxFit.contain,
-                                      )),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.menu_book_rounded,
-                                        color: appWhite,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Terakhir Dibaca",
-                                        style: TextStyle(
-                                          color: appWhite,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    "Loading",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: appWhite,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+              GetBuilder<HomeController>(
+                builder: (c) => FutureBuilder<Map<String, dynamic>?>(
+                  future: c.getLastRead(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           gradient: LinearGradient(
                             colors: [
-                              appPurpleDark1,
                               appPurpleLight1,
+                              appPurpleDark1,
                             ],
                           ),
                         ),
-                      ),
-                    );
-                  }
-                  Map<String, dynamic>? lastRead = snapshot.data;
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [
-                          appPurpleLight1,
-                          appPurpleDark1,
-                        ],
-                      ),
-                    ),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onLongPress: () {
-                          if (lastRead != null) {
-                            Get.defaultDialog(
-                                title: "Hapus Last Read",
-                                middleText:
-                                    "Apakah anda yakin menghapus last read?",
-                                actions: [
-                                  OutlinedButton(
-                                      onPressed: () => Get.back(),
-                                      child: Text("Batal")),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      controller.deleteLastRead(lastRead["id"]);
-                                    },
-                                    child: Text("Hapus"),
-                                    style: ElevatedButton.styleFrom(
-                                      primary: appPurpleDark1,
-                                    ),
-                                  ),
-                                ]);
-                          }
-                        },
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {
-                          if (lastRead != null) {
-                            print(lastRead);
-                          }
-                        },
                         child: Container(
                           height: 150,
                           width: Get.width,
@@ -217,20 +108,10 @@ class HomeView extends GetView<HomeController> {
                                     SizedBox(
                                       height: 20,
                                     ),
-                                    if (lastRead != null)
-                                      Text(
-                                        "${lastRead['surah'].toString().replaceAll("+", "'")}",
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: appWhite,
-                                        ),
-                                      ),
                                     Text(
-                                      lastRead == null
-                                          ? "Belum ada data"
-                                          : "Juz ${lastRead['juz']} | ayat ${lastRead['ayat']}",
+                                      "Loading",
                                       style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 20,
                                         color: appWhite,
                                       ),
                                     ),
@@ -249,10 +130,133 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                         ),
+                      );
+                    }
+                    Map<String, dynamic>? lastRead = snapshot.data;
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            appPurpleLight1,
+                            appPurpleDark1,
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                      child: Material(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onLongPress: () {
+                            if (lastRead != null) {
+                              Get.defaultDialog(
+                                  title: "Hapus Last Read",
+                                  middleText:
+                                      "Apakah anda yakin menghapus last read?",
+                                  actions: [
+                                    OutlinedButton(
+                                        onPressed: () => Get.back(),
+                                        child: Text("Batal")),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        c
+                                            .deleteLastRead(lastRead["id"]);
+                                      },
+                                      child: Text("Hapus"),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: appPurpleDark1,
+                                      ),
+                                    ),
+                                  ]);
+                            }
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () {
+                            if (lastRead != null) {
+                              print(lastRead);
+                            }
+                          },
+                          child: Container(
+                            height: 150,
+                            width: Get.width,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Opacity(
+                                      opacity: 0.5,
+                                      child: Container(
+                                          width: 150,
+                                          height: 150,
+                                          child: Image.asset(
+                                            "assets/images/alquran.png",
+                                            fit: BoxFit.contain,
+                                          )),
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.menu_book_rounded,
+                                            color: appWhite,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Terakhir Dibaca",
+                                            style: TextStyle(
+                                              color: appWhite,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      if (lastRead != null)
+                                        Text(
+                                          "${lastRead['surah'].toString().replaceAll("+", "'")}",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: appWhite,
+                                          ),
+                                        ),
+                                      Text(
+                                        lastRead == null
+                                            ? "Belum ada data"
+                                            : "Juz ${lastRead['juz']} | ayat ${lastRead['ayat']}",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: appWhite,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                colors: [
+                                  appPurpleDark1,
+                                  appPurpleLight1,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
               TabBar(tabs: [
                 Tab(

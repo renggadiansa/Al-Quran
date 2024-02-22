@@ -9,12 +9,13 @@ import 'package:just_audio/just_audio.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DetailSurahController extends GetxController {
+
   final player = AudioPlayer();
   Verse? lastVerse;
 
   DatabaseManager database = DatabaseManager.instance;
 
-  void addBookmark(
+  Future<void> addBookmark(
       bool lastRead, DetailSurah surah, Verse ayat, int indexAyat) async {
     Database db = await database.db;
     bool flexExist = false;
