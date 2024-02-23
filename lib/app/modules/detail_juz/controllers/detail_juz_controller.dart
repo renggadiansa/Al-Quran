@@ -11,8 +11,7 @@ import 'package:just_audio/just_audio.dart';
 class DetailJuzController extends GetxController {
   int index = 0;
 
-    final homeC = Get.find<HomeController>();
-
+  final homeC = Get.find<HomeController>();
 
   DatabaseManager database = DatabaseManager.instance;
 
@@ -25,9 +24,17 @@ class DetailJuzController extends GetxController {
       await db.delete("bookmark", where: "last_read = 1");
     } else {
       List checkData = await db.query("bookmark",
-          columns: ["surah", "ayat", "juz", "via", "index_ayat", "last_read"],
+          columns: [
+            "surah",
+            "number_surah",
+            "ayat",
+            "juz",
+            "via",
+            "index_ayat",
+            "last_read"
+          ],
           where:
-              "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and ayat = ${ayat.number!.inSurah!} and juz = ${ayat.meta!.juz!} and via = 'juz' and index_ayat = $indexAyat and last_read = 0");
+              "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and number_surah = ${surah.number!} and ayat = ${ayat.number!.inSurah!} and juz = ${ayat.meta!.juz!} and via = 'juz' and index_ayat = $indexAyat and last_read = 0");
       if (checkData.length != 0) {
         flexExist = true;
       }
@@ -36,6 +43,7 @@ class DetailJuzController extends GetxController {
     if (flexExist == false) {
       await db.insert("bookmark", {
         "surah": "${surah.name!.transliteration!.id!.replaceAll("'", "+")}",
+        "number_surah": surah.number!,
         "ayat": ayat.number!.inSurah!,
         "juz": ayat.meta!.juz!,
         "via": "juz",

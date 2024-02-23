@@ -159,8 +159,7 @@ class HomeView extends GetView<HomeController> {
                                         child: Text("Batal")),
                                     ElevatedButton(
                                       onPressed: () {
-                                        c
-                                            .deleteLastRead(lastRead["id"]);
+                                        c.deleteLastRead(lastRead["id"]);
                                       },
                                       child: Text("Hapus"),
                                       style: ElevatedButton.styleFrom(
@@ -258,6 +257,9 @@ class HomeView extends GetView<HomeController> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
               TabBar(tabs: [
                 Tab(
                   text: "Surah",
@@ -296,8 +298,13 @@ class HomeView extends GetView<HomeController> {
                               Surah surah = snapshot.data![index];
                               return ListTile(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_SURAH,
-                                      arguments: surah);
+                                  Get.toNamed(
+                                    Routes.DETAIL_SURAH,
+                                    arguments: {
+                                      "name": surah.name!.transliteration!.id,
+                                      "number": surah.number!,
+                                    },
+                                  );
                                 },
                                 leading: Obx(() => Container(
                                       height: 50,
@@ -475,7 +482,16 @@ class HomeView extends GetView<HomeController> {
                                     snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
-                                    print(data);
+                                    Get.toNamed(
+                                      Routes.DETAIL_SURAH,
+                                      arguments: {
+                                        "name": data["surah"]
+                                            .toString()
+                                            .replaceAll("+", "'"),
+                                        "number": data["number_surah"],
+                                        "bookmark": data,
+                                      },
+                                    );
                                   },
                                   leading: Obx(
                                     () => Container(

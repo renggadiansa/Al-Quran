@@ -25,8 +25,8 @@ class DetailSurahController extends GetxController {
     } else {
       List checkData = await db.query(
           "bookmark", 
-          columns: ["surah", "ayat", "juz", "via", "index_ayat", "last_read"],
-          where: "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and ayat = ${ayat.number!.inSurah!} and juz = ${ayat.meta!.juz!} and via = 'surah' and index_ayat = $indexAyat and last_read = 0");
+          columns: ["surah", "number_surah" ,"ayat", "juz", "via", "index_ayat", "last_read"],
+          where: "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and number_surah = ${surah.number!} and ayat = ${ayat.number!.inSurah!} and juz = ${ayat.meta!.juz!} and via = 'surah' and index_ayat = $indexAyat and last_read = 0");
       if (checkData.length != 0) {
         flexExist = true;
       }
@@ -35,6 +35,7 @@ class DetailSurahController extends GetxController {
     if (flexExist == false) {
       await db.insert("bookmark", {
         "surah": "${surah.name!.transliteration!.id!.replaceAll("'", "+")}",
+        "number_surah": surah.number!,
         "ayat": ayat.number!.inSurah!,
         "juz": ayat.meta!.juz!,
         "via": "surah",
