@@ -48,7 +48,7 @@ class HomeController extends GetxController {
   Future<List<Map<String, dynamic>>> getBookmark() async {
     Database db = await database.db;
     List<Map<String, dynamic>> allbookmark =
-        await db.query("bookmark", where: "last_read = 0");
+        await db.query("bookmark", where: "last_read = 0", orderBy: "surah");
     return allbookmark;
   }
 
