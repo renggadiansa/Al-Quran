@@ -134,6 +134,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                             ?.id,
                                       ),
                                     ),
+                                    number: allSurahInThisJuz[controller.index]
+                                        .number,
                                   )),
                             ],
                           ),

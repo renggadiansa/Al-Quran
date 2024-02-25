@@ -161,7 +161,10 @@ class HomeView extends GetView<HomeController> {
                                       onPressed: () {
                                         c.deleteLastRead(lastRead["id"]);
                                       },
-                                      child: Text("Hapus"),
+                                      child: Text(
+                                        "Hapus",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                       style: ElevatedButton.styleFrom(
                                         primary: appPurpleDark1,
                                       ),
@@ -482,6 +485,14 @@ class HomeView extends GetView<HomeController> {
                                     snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
+                                    // switch (data["via"]) {
+                                    //   case "juz":
+                                    //     print("go to juz");
+                                    //     break;
+                                    //   default:
+
+                                    //     break;
+                                    // }
                                     Get.toNamed(
                                       Routes.DETAIL_SURAH,
                                       arguments: {
@@ -541,16 +552,12 @@ class HomeView extends GetView<HomeController> {
                                             primary: appPurpleDark1,
                                           ),
                                         ),
-                                        cancel: ElevatedButton(
+                                        cancel: OutlinedButton(
                                           onPressed: () {
                                             Get.back();
                                           },
                                           child: Text(
                                             "Batal",
-                                            style: TextStyle(color: appWhite),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            primary: appPurpleDark1,
                                           ),
                                         ),
                                       );

@@ -12,6 +12,7 @@ import 'package:sqflite/sqflite.dart';
 class HomeController extends GetxController {
   List<Surah> allSurah = [];
   RxBool isDark = false.obs;
+  List<Juz> allJuz = [];
 
   DatabaseManager database = DatabaseManager.instance;
 
@@ -47,8 +48,8 @@ class HomeController extends GetxController {
 
   Future<List<Map<String, dynamic>>> getBookmark() async {
     Database db = await database.db;
-    List<Map<String, dynamic>> allbookmark =
-        await db.query("bookmark", where: "last_read = 0", orderBy: "surah");
+    List<Map<String, dynamic>> allbookmark = await db.query("bookmark",
+        where: "last_read = 0", orderBy: "surah, via, ayat");
     return allbookmark;
   }
 
@@ -79,7 +80,6 @@ class HomeController extends GetxController {
   }
 
   Future<List<Juz>> getAllJuz() async {
-    List<Juz> allJuz = [];
     for (int i = 1; i <= 30; i++) {
       Uri url = Uri.parse("https://api.quran.gading.dev/juz/$i");
       var res = await http.get(url);
