@@ -175,7 +175,16 @@ class HomeView extends GetView<HomeController> {
                           borderRadius: BorderRadius.circular(20),
                           onTap: () {
                             if (lastRead != null) {
-                              print(lastRead);
+                              Get.toNamed(
+                                Routes.DETAIL_SURAH,
+                                arguments: {
+                                  "name": lastRead["surah"]
+                                      .toString()
+                                      .replaceAll("+", "'"),
+                                  "number": lastRead["number_surah"],
+                                  "bookmark": lastRead,
+                                },
+                              );
                             }
                           },
                           child: Container(
@@ -490,9 +499,20 @@ class HomeView extends GetView<HomeController> {
                                     //     print("go to juz");
                                     //     break;
                                     //   default:
-
+                                    // Get.toNamed(
+                                    //   Routes.DETAIL_SURAH,
+                                    //   arguments: {
+                                    //     "name": data["surah"]
+                                    //         .toString()
+                                    //         .replaceAll("+", "'"),
+                                    //     "number": data["number_surah"],
+                                    //     "bookmark": data,
+                                    //   },
+                                    // );
                                     //     break;
                                     // }
+
+                                    //by default
                                     Get.toNamed(
                                       Routes.DETAIL_SURAH,
                                       arguments: {
