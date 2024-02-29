@@ -150,13 +150,16 @@ class HomeView extends GetView<HomeController> {
                           onLongPress: () {
                             if (lastRead != null) {
                               Get.defaultDialog(
-                                  title: "Hapus Last Read",
+                                  title: "Hapus Terakhir Dibaca", titleStyle:TextStyle(fontWeight: FontWeight.bold) ,
                                   middleText:
-                                      "Apakah anda yakin menghapus last read?",
+                                      "Apakah anda yakin ingin menghapus terakhir dibaca ini?",
                                   actions: [
                                     OutlinedButton(
                                         onPressed: () => Get.back(),
                                         child: Text("Batal")),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
                                     ElevatedButton(
                                       onPressed: () {
                                         c.deleteLastRead(lastRead["id"]);
@@ -555,32 +558,32 @@ class HomeView extends GetView<HomeController> {
                                   trailing: IconButton(
                                     onPressed: () {
                                       Get.defaultDialog(
-                                        title: "Hapus Bookmark",
-                                        titleStyle: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                        middleText:
-                                            "Apakah anda yakin ingin menghapus bookmark ini?",
-                                        confirm: ElevatedButton(
-                                          onPressed: () {
-                                            c.deleteBookmark(data["id"]);
-                                          },
-                                          child: Text(
-                                            "Hapus",
-                                            style: TextStyle(color: appWhite),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            primary: appPurpleDark1,
-                                          ),
-                                        ),
-                                        cancel: OutlinedButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: Text(
-                                            "Batal",
-                                          ),
-                                        ),
-                                      );
+                                          title: "Hapus Bookmark",
+                                          titleStyle: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          middleText:
+                                              "Apakah anda yakin ingin menghapus bookmark ini?",
+                                          actions: [
+                                            OutlinedButton(
+                                                onPressed: () => Get.back(),
+                                                child: Text("Batal")),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                c.deleteBookmark(data["id"]);
+                                              },
+                                              child: Text(
+                                                "Hapus",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: appPurpleDark1,
+                                              ),
+                                            ),
+                                          ]);
                                     },
                                     icon: Icon(Icons.delete),
                                   ),

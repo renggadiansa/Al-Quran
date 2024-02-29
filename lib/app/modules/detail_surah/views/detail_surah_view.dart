@@ -97,7 +97,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   IconButton(
                                     onPressed: () {
                                       Get.defaultDialog(
-                                        title: "BOOKMARK",
+                                        title: "BOOKMARK", titleStyle: TextStyle(fontWeight: FontWeight.bold),
                                         middleText: "Pilih jenis Bookmark",
                                         actions: [
                                           ElevatedButton(
@@ -106,7 +106,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                   snapshot.data!, ayat!, index);
                                               homeC.update();
                                             },
-                                            child: Text(
+                                            child: Text(                                            
                                               "Last Read",
                                               style: TextStyle(
                                                   color: Colors.white),
@@ -115,6 +115,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                               primary: appPurple,
                                             ),
                                           ),
+                                          SizedBox(width: 10),
                                           ElevatedButton(
                                             onPressed: () {
                                               c.addBookmark(false,

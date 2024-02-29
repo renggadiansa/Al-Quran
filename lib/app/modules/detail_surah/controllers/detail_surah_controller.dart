@@ -47,8 +47,13 @@ class DetailSurahController extends GetxController {
       });
 
       Get.back();
-      Get.snackbar("Berhasil", "Berhasil menambahkan bookmark",
-          colorText: appWhite);
+      if(lastRead == true){
+        Get.snackbar("Berhasil", "Berhasil menambahkan terakhir dibaca",
+            colorText: appWhite);
+      } else {
+        Get.snackbar("Berhasil", "Berhasil menambahkan bookmark",
+            colorText: appWhite);
+      }
     } else {
       Get.back();
       Get.snackbar("Gagal", "Bookmark sudah ada", colorText: appWhite);
