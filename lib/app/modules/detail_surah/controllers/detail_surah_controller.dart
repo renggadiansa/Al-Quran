@@ -50,6 +50,9 @@ class DetailSurahController extends GetxController {
       if(lastRead == true){
         Get.snackbar("Berhasil", "Berhasil menambahkan terakhir dibaca",
             colorText: appWhite);
+      // } else if(lastRead != flexExist ){
+      //   Get.snackbar("Gagal", "Terakhir dibaca sudah ada",
+      //       colorText: appWhite);
       } else {
         Get.snackbar("Berhasil", "Berhasil menambahkan bookmark",
             colorText: appWhite);

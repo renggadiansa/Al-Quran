@@ -144,7 +144,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SurahWidget2(
+                  SurahWidgetTafsir(
                     surah: allSurahInThisJuz[controller.index],
                     ayat: detail.Verse(
                         text: detail.Text(
@@ -257,8 +257,8 @@ class SurahWidget extends StatelessWidget {
   }
 }
 
-class SurahWidget2 extends StatelessWidget {
-  const SurahWidget2({super.key, required this.surah, required this.ayat});
+class SurahWidgetTafsir extends StatelessWidget {
+  const SurahWidgetTafsir({super.key, required this.surah, required this.ayat});
   final Surah surah;
   final detail.Verse ayat;
   @override
