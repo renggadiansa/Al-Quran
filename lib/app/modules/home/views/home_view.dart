@@ -3,6 +3,7 @@ import 'package:alquran/app/data/models/juz.dart' as juz;
 import 'package:alquran/app/data/models/surah.dart';
 import 'package:alquran/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
@@ -19,7 +20,8 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         leading: BackButton(
           color: Colors.white,
-          onPressed: () => Get.toNamed(Routes.INTRODUCTION),
+          //onPressed: () => Get.toNamed(Routes.INTRODUCTION),
+          onPressed: () => SystemNavigator.pop(),
         ),
         title: const Text(
           'Al Quran',
