@@ -97,7 +97,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   IconButton(
                                     onPressed: () {
                                       Get.defaultDialog(
-                                        title: "BOOKMARK", titleStyle: TextStyle(fontWeight: FontWeight.bold),
+                                        title: "BOOKMARK",
+                                        titleStyle: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                         middleText: "Pilih jenis Bookmark",
                                         actions: [
                                           ElevatedButton(
@@ -106,13 +108,13 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                   snapshot.data!, ayat!, index);
                                               homeC.update();
                                             },
-                                            child: Text(                                            
+                                            child: Text(
                                               "Last Read",
                                               style: TextStyle(
                                                   color: Colors.white),
                                             ),
                                             style: ElevatedButton.styleFrom(
-                                              primary: appPurple,
+                                              backgroundColor: appPurple,
                                             ),
                                           ),
                                           SizedBox(width: 10),
@@ -127,7 +129,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                   color: Colors.white),
                                             ),
                                             style: ElevatedButton.styleFrom(
-                                              primary: appPurple,
+                                              backgroundColor: appPurple,
                                             ),
                                           ),
                                         ],

@@ -23,21 +23,20 @@ ThemeData themeLight = ThemeData(
       backgroundColor: appPurple,
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(color: appPurpleDark1),
-      bodyText2: TextStyle(color: appPurpleDark1),
+      bodyLarge: TextStyle(color: appWhite),
+      bodyMedium: TextStyle(color: appWhite),
     ),
     listTileTheme: ListTileThemeData(
       textColor: appPurpleDark1,
     ),
     tabBarTheme: TabBarTheme(
-        labelColor: appPurpleDark1,
-        unselectedLabelColor: Colors.grey,
-      
-        //  indicatorColor: appPurpleDark1,
-        //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
-        //             unselectedLabelColor: Colors.grey,
+      labelColor: appPurpleDark1,
+      unselectedLabelColor: Colors.grey,
 
-        ));
+      //  indicatorColor: appPurpleDark1,
+      //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
+      //             unselectedLabelColor: Colors.grey,
+    ));
 
 ThemeData temeDark = ThemeData(
     brightness: Brightness.dark,
@@ -50,18 +49,17 @@ ThemeData temeDark = ThemeData(
       backgroundColor: appPurpleDark1,
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(color: appWhite),
-      bodyText2: TextStyle(color: appWhite),
+      bodyLarge: TextStyle(color: appWhite),
+      bodyMedium: TextStyle(color: appWhite),
     ),
     listTileTheme: ListTileThemeData(
       textColor: appWhite,
     ),
     tabBarTheme: TabBarTheme(
-        labelColor: appWhite,
-        unselectedLabelColor: Colors.grey,
-       
-        //  indicatorColor: appPurpleDark1,
-        //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
-        //             unselectedLabelColor: Colors.grey,
+      labelColor: appWhite,
+      unselectedLabelColor: Colors.grey,
 
-        ));
+      //  indicatorColor: appPurpleDark1,
+      //             labelColor: Get.isDarkMode ? appWhite : appPurpleDark1,
+      //             unselectedLabelColor: Colors.grey,
+    ));

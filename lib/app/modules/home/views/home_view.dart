@@ -152,7 +152,9 @@ class HomeView extends GetView<HomeController> {
                           onLongPress: () {
                             if (lastRead != null) {
                               Get.defaultDialog(
-                                  title: "Hapus Terakhir Dibaca", titleStyle:TextStyle(fontWeight: FontWeight.bold) ,
+                                  title: "Hapus Terakhir Dibaca",
+                                  titleStyle:
+                                      TextStyle(fontWeight: FontWeight.bold),
                                   middleText:
                                       "Apakah anda yakin ingin menghapus terakhir dibaca ini?",
                                   actions: [
@@ -171,7 +173,7 @@ class HomeView extends GetView<HomeController> {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        primary: appPurpleDark1,
+                                        backgroundColor: appPurpleDark1,
                                       ),
                                     ),
                                   ]);
@@ -582,7 +584,7 @@ class HomeView extends GetView<HomeController> {
                                                     color: Colors.white),
                                               ),
                                               style: ElevatedButton.styleFrom(
-                                                primary: appPurpleDark1,
+                                                backgroundColor: appPurpleDark1,
                                               ),
                                             ),
                                           ]);
